@@ -1,0 +1,24 @@
+import discord
+from discord.ext import commands
+import datetime
+
+bot = commands.Bot(command_prefix="YOUR PREFIX", case_insensitive=True)
+
+@bot.event
+async def on_ready():
+    print(f"{bot.user.name} is online!")
+    print(f"ID: {bot.user.id}")
+    
+#now the command
+
+@bot.command(name="accountage", aliases=["accage"])
+async def accage(ctx):
+
+    e = discord.Embed(color=ctx.author.color)
+    e.set_thumbnail(url=ctx.author.avatar_url)
+    e.set_author(name=f'Your account exists since the:')
+    e.add_field(name=f"**{ctx.author.created_at.strftime('%m/%d/%Y')}**", value=f"**{ctx.author.created_at.strftime('%H:%M')}**", inline=True)
+    await ctx.send(embed=e)
+
+
+bot.run('YOUR BOT-TOKEN')
